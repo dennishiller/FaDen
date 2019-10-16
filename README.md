@@ -1,2 +1,12 @@
-# FaDen
-Komponentenbasierte Entwicklung WiSe 19/20
+# PROJ Template
+
+TEAMNAME: FaDen
+
+
+Mitglied: Fabian Georgi 563263
+
+Mitglied: Dennis Hiller 563207
+
+
+
+
