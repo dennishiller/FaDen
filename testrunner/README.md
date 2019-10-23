@@ -1,11 +1,11 @@
 # PROJ Template
 
-TEAMNAME:
+TEAMNAME: FaDen
 
 
-Mitglied:
+* > Mitglied: *Fa*bian Georgi s0563263
 
-Mitglied:
+* > Mitglied: *Den*nis Hiller s0563207
 
 
 
