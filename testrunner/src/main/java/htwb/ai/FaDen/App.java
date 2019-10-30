@@ -3,7 +3,6 @@ package htwb.ai.FaDen;
 import htwb.ai.MyTest;
 import org.apache.commons.cli.*;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -26,7 +25,7 @@ public class App {
 
         //try to load class
         try {
-            clazz = Class.forName("htwb.ai.FaDen." + className);
+            clazz = Class.forName("htwb.ai.FaDen." + className); //TODO ohne dingsda auch noch angeben
             Method[] methods = clazz.getMethods(); // alle Methoden holen -> jetzt filtern
             errorPrintIrrelevantMethods(methods);
             relevantMethods = getAllRelevantMethods(methods);
@@ -40,18 +39,7 @@ public class App {
             e.printStackTrace();
         }
 
-        boolean result;
-        for (Method method : relevantMethods) {
-            try {
-                result = (boolean) method.invoke(testingInstance);
-                if(result) System.out.printf("Result for '%s': passed%n", method.getName());
-                else System.out.printf("Result for '%s': failed%n", method.getName());
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                System.out.printf("Result for '%s': error due to %s%n", method.getName(), e.getMessage());
-            }
-        }
-
-        // System.out.println( returnsHelloWorld() );
+        invokeAndEvaluateMethods();
     }
 
     private static String getClassNameFromUser(String[] args) {
@@ -87,6 +75,7 @@ public class App {
                 });
     }
 
+
     private static Method[] getAllRelevantMethods(Method[] methods) {
         return Arrays.stream(methods)
                 .filter(method -> method.isAnnotationPresent(MyTest.class)) //richtig annotiert
@@ -94,6 +83,23 @@ public class App {
                 .filter(method -> method.getReturnType().equals(Boolean.TYPE)) //Boolean Rueckgabewerte
                 .filter(method -> !Modifier.isStatic(method.getModifiers())) //non static methods
                 .toArray(Method[]::new);
+    }
+
+    private static void invokeAndEvaluateMethods() {
+        boolean result;
+        for (Method method : relevantMethods) {
+            try {
+                result = (boolean) method.invoke(testingInstance);
+                evaluateMethod(method, result);
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                System.out.printf("Result for '%s': error due to %s%n", method.getName(), e.getMessage());
+            }
+        }
+    }
+
+    private static void evaluateMethod(Method method, boolean result) {
+        if(result) System.out.printf("Result for '%s': passed%n", method.getName());
+        else System.out.printf("Result for '%s': failed%n", method.getName());
     }
     
     public static String returnsHelloWorld() {

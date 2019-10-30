@@ -22,5 +22,8 @@ public class CustomTestClass {
     @MyTest
     public boolean hasParams(boolean var) { return false; }
 
+    @MyTest
+    public static boolean staticMethod(boolean var) { return false; }
+
     public boolean noAnnotation() { return false; }
 }
