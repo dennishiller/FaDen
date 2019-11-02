@@ -24,7 +24,7 @@ public class TestRunner {
         try{
             className = getClassNameFromUser(args);
         } catch (IllegalArgumentException e) {
-            System.out.println("ClassName was not provided");
+            System.out.println("Please provide the following format: 'java -jar faden-jar-with-dependencies.jar –c className'");
             System.exit(1);
         }
 
