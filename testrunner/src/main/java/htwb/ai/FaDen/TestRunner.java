@@ -30,7 +30,7 @@ public class TestRunner {
 
         //try to load class
         try {
-            clazz = loadClass(className); //TODO ohne dingsda auch noch angeben
+            clazz = loadClass(className);
         } catch (ClassNotFoundException e) {
             System.out.println("Class provided was not found");
         }
