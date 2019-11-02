@@ -32,10 +32,15 @@ public class TestRunner {
         try {
             clazz = loadClass(className); //TODO ohne dingsda auch noch angeben
         } catch (ClassNotFoundException e) {
-            System.out.println("Class provided not found");
+            System.out.println("Class provided was not found");
         }
 
         Method[] methods = clazz.getMethods(); // alle Methoden holen -> jetzt filtern
+
+        System.out.println("---------------");
+        System.out.println("     ERRORS");
+        System.out.println("---------------");
+
         errorPrintIrrelevantMethods(methods);
         relevantMethods = getAllRelevantMethods(methods);
 
@@ -44,6 +49,11 @@ public class TestRunner {
         } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             e.printStackTrace();
         }
+
+        System.out.println("");
+        System.out.println("---------------");
+        System.out.println("     TESTING");
+        System.out.println("---------------");
 
         invokeAndEvaluateMethods();
     }
@@ -62,10 +72,12 @@ public class TestRunner {
 
         options.addOption(classOption);
 
+        if (args.length >= 3) throw new IllegalArgumentException("too many arguments");
+
         try {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
 
         if(cmd.hasOption("c")) {
@@ -103,7 +115,7 @@ public class TestRunner {
                 result = (boolean) method.invoke(testingInstance);
                 evaluateMethod(method, result);
             } catch (IllegalAccessException | InvocationTargetException e) {
-                System.out.printf("Result for '%s': error due to %s%n", method.getName(), e.getMessage());
+                System.out.printf("Result for '%s': error due to %s%n", method.getName(), e.getClass().getSimpleName());
             }
         }
     }
@@ -112,7 +124,7 @@ public class TestRunner {
         if(result) System.out.printf("Result for '%s': passed%n", method.getName());
         else System.out.printf("Result for '%s': failed%n", method.getName());
     }
-    
+
     protected static String returnsHelloWorld() {
         return "Hello World!";
     }
