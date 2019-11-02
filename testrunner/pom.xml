@@ -105,7 +105,7 @@
 					<!-- MainClass in mainfest make a executable jar -->
 					<archive>
 						<manifest>
-							<mainClass>htwb.ai.FaDen.App</mainClass>
+							<mainClass>htwb.ai.FaDen.TestRunner</mainClass>
 						</manifest>
 					</archive>
 

@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
-public class App {
+public class TestRunner {
 
     private static Options options = new Options();
     private static CommandLineParser parser = new DefaultParser();
@@ -18,20 +18,26 @@ public class App {
     private static Object testingInstance;
 
     public static void main(String[] args) {
-        String className = getClassNameFromUser(args);
-        if(className == null) {
-            System.out.println("ClassName not provided"); //TODO einzig und alleine noch -c und kein Args wirft noch Fehler
+
+        String className = "";
+
+        try{
+            className = getClassNameFromUser(args);
+        } catch (IllegalArgumentException e) {
+            System.out.println("ClassName was not provided");
+            System.exit(1);
         }
 
         //try to load class
         try {
-            clazz = Class.forName("htwb.ai.FaDen." + className); //TODO ohne dingsda auch noch angeben
-            Method[] methods = clazz.getMethods(); // alle Methoden holen -> jetzt filtern
-            errorPrintIrrelevantMethods(methods);
-            relevantMethods = getAllRelevantMethods(methods);
+            clazz = loadClass(className); //TODO ohne dingsda auch noch angeben
         } catch (ClassNotFoundException e) {
             System.out.println("Class provided not found");
         }
+
+        Method[] methods = clazz.getMethods(); // alle Methoden holen -> jetzt filtern
+        errorPrintIrrelevantMethods(methods);
+        relevantMethods = getAllRelevantMethods(methods);
 
         try {
             testingInstance = clazz.getDeclaredConstructor().newInstance();
@@ -42,7 +48,11 @@ public class App {
         invokeAndEvaluateMethods();
     }
 
-    private static String getClassNameFromUser(String[] args) {
+    protected static Class loadClass(String className) throws ClassNotFoundException{
+        return Class.forName(className);
+    }
+
+    protected static String getClassNameFromUser(String[] args) throws IllegalArgumentException {
         Option classOption = Option.builder()
                 .longOpt("c")
                 .argName("className")
@@ -61,10 +71,11 @@ public class App {
         if(cmd.hasOption("c")) {
             return cmd.getOptionValue("c");
         }
-        return null;
+
+        throw new IllegalArgumentException(); //throw something if cmd doesn't return value
     }
 
-    private static void errorPrintIrrelevantMethods(Method[] methods) {
+    protected static void errorPrintIrrelevantMethods(Method[] methods) {
         Arrays.stream(methods)
                 .forEach(method -> {
                     if (method.isAnnotationPresent(MyTest.class)) {
@@ -76,7 +87,7 @@ public class App {
     }
 
 
-    private static Method[] getAllRelevantMethods(Method[] methods) {
+    protected static Method[] getAllRelevantMethods(Method[] methods) {
         return Arrays.stream(methods)
                 .filter(method -> method.isAnnotationPresent(MyTest.class)) //richtig annotiert
                 .filter(method -> method.getParameterCount() == 0) //keine Uebergabeparameter
@@ -85,7 +96,7 @@ public class App {
                 .toArray(Method[]::new);
     }
 
-    private static void invokeAndEvaluateMethods() {
+    protected static void invokeAndEvaluateMethods() {
         boolean result;
         for (Method method : relevantMethods) {
             try {
@@ -97,12 +108,12 @@ public class App {
         }
     }
 
-    private static void evaluateMethod(Method method, boolean result) {
+    protected static void evaluateMethod(Method method, boolean result) {
         if(result) System.out.printf("Result for '%s': passed%n", method.getName());
         else System.out.printf("Result for '%s': failed%n", method.getName());
     }
     
-    public static String returnsHelloWorld() {
+    protected static String returnsHelloWorld() {
         return "Hello World!";
     }
 }
