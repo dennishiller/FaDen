@@ -47,7 +47,7 @@ public class TestRunner {
         try {
             testingInstance = clazz.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            e.printStackTrace();
+            System.out.printf("Class '%s': has thrown %s", clazz.getSimpleName(), e.getClass().getSimpleName());
         }
 
         System.out.println("");
@@ -114,7 +114,7 @@ public class TestRunner {
             try {
                 result = (boolean) method.invoke(testingInstance);
                 evaluateMethod(method, result);
-            } catch (IllegalAccessException | InvocationTargetException e) {
+            } catch (NullPointerException | IllegalAccessException | InvocationTargetException e) {
                 System.out.printf("Result for '%s': error due to %s%n", method.getName(), e.getClass().getSimpleName());
             }
         }

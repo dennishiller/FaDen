@@ -2,28 +2,50 @@ package htwb.ai.FaDen;
 
 import htwb.ai.MyTest;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class CustomTestClass {
 
-    @MyTest
-    public boolean passTest() { return true; }
+    private CustomTestClass() {
+
+    }
 
     @MyTest
-    public boolean failTest() { return false; }
+    public boolean passTest() {
+        return true;
+    }
 
     @MyTest
-    public boolean errorTest() { throw new ArithmeticException(); }
+    public boolean failTest() {
+        return false;
+    }
 
     @MyTest
-    public int wrongReturnType() { return 5; }
+    public boolean errorTest() {
+        throw new ArithmeticException();
+    }
 
     @MyTest
-    private boolean notPublic() { return true; }
+    public int wrongReturnType() {
+        return 5;
+    }
 
     @MyTest
-    public boolean hasParams(boolean var) { return false; }
+    private boolean notPublic() {
+        return true;
+    }
 
     @MyTest
-    public static boolean staticMethod(boolean var) { return false; }
+    public boolean hasParams(boolean var) {
+        return false;
+    }
 
-    public boolean noAnnotation() { return false; }
+    @MyTest
+    public static boolean staticMethod(boolean var) {
+        return false;
+    }
+
+    public boolean noAnnotation() {
+        return false;
+    }
 }
