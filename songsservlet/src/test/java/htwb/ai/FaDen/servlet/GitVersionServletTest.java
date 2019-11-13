@@ -1,4 +1,4 @@
-package htwb.ai.FaDen.controller;
+package htwb.ai.FaDen.servlet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import javax.servlet.ServletException;
 
+import htwb.ai.FaDen.controller.GitVersionServlet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;

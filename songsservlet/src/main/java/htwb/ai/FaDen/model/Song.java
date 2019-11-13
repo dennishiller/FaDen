@@ -1,13 +1,18 @@
-package htwb.ai.FaDen.controller;
+package htwb.ai.FaDen.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "song")
 public class Song {
-    private int id;
+    private Integer id;
     private String title;
     private String artist;
     private String label;
-    private int released;
+    private Integer released;
 
-    public Song(int id, String title, String artist, String label, int released) {
+    public Song() {} //WICHTIG!
+
+    public Song(Integer id, String title, String artist, String label, Integer released) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -19,7 +24,7 @@ public class Song {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -47,11 +52,16 @@ public class Song {
         this.label = label;
     }
 
-    public int getReleased() {
+    public Integer getReleased() {
         return released;
     }
 
-    public void setReleased(int released) {
+    public void setReleased(Integer released) {
         this.released = released;
+    }
+
+    @Override
+    public String toString() {
+        return "Song [id=" + id + ", title=" + title + ", artist=" + artist + ", label=" + label + ", released=" + released + "]";
     }
 }
