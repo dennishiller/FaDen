@@ -3,10 +3,6 @@
 TEAMNAME: FaDen
 
 
-* Mitglied: *Fa*bian Georgi s0563263
+* Mitglied: ***Fa***bian Georgi s0563263
 
-* Mitglied: *Den*nis Hiller s0563207
-
-
-
-
+* Mitglied: ***Den***nis Hiller s0563207
