@@ -12,7 +12,8 @@ public class InMemorySongs {
     private Map<Integer, Song> storage;
 
     public InMemorySongs(List<Song> songs) {
-        songs.forEach(song -> getInstance().storage.put(song.getId(), song));
+        storage = new ConcurrentHashMap<>();
+        songs.forEach(song -> storage.put(song.getId(), song));
     }
 
     private InMemorySongs() {

@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import htwb.ai.FaDen.model.InMemorySongs;
 import htwb.ai.FaDen.model.Song;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.io.*;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class SongDao {
         return (List<Song>) objectMapper.readValue(in, new TypeReference<List<Song>>() {});
     }
 
-    public InMemorySongs loadSongsInMemory(String filename) throws IOException{
+    public InMemorySongs loadSongsInMemory(String filename) throws IOException {
         List<Song> songs = readJSONToSongs(filename);
         return new InMemorySongs(songs);
     }
@@ -29,8 +32,21 @@ public class SongDao {
         objectMapper.writeValue(writer, songs);
     }
 
-    public void writeStoragetoJSON(String filename) throws IOException {
-        List<Song> songs = InMemorySongs.getInstance().getSongs();
+    public void writeStoragetoJSON(InMemorySongs database, String filename) throws IOException {
+        List<Song> songs = database.getSongs();
         saveInMemoryToJSON(songs, filename);
+    }
+
+    public String convertSongToXml(Song song) {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Song.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            StringWriter sw = new StringWriter();
+            jaxbMarshaller.marshal(song, sw);
+            return sw.toString();
+        } catch (JAXBException e) {
+            return e.getMessage();
+        }
     }
 }

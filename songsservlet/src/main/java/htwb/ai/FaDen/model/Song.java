@@ -64,4 +64,14 @@ public class Song {
     public String toString() {
         return "Song [id=" + id + ", title=" + title + ", artist=" + artist + ", label=" + label + ", released=" + released + "]";
     }
+
+    public boolean valid() {
+        if (id == null || id < 1 || id > 10) return false;
+        if (title == null || title.isEmpty()) return false;
+        if (artist == null || artist.isEmpty()) return false;
+        if (label == null || label.isEmpty()) return false;
+        if (released == null || released < 0) return false;
+
+        return true;
+    }
 }
