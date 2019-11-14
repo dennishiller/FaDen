@@ -22,9 +22,9 @@ import java.io.PrintWriter;
 
 public class SongServlet extends HttpServlet {
 
-    private InMemorySongs database;
-    private SongDao dao;
-    private String filename;
+    public InMemorySongs database; //public wegen tests :(
+    public SongDao dao;
+    public String filename;
     private ObjectMapper objectMapper;
 
     @Override
