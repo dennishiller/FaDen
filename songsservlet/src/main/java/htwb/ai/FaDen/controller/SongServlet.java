@@ -96,6 +96,7 @@ public class SongServlet extends HttpServlet {
 
     private void updateJsonSong(int songId, HttpServletRequest request) throws ParameterException, PayloadException, IOException {
         Song song = database.get(songId);
+
         try (BufferedReader in = request.getReader()) {
             Song submittedSong = objectMapper.readValue(in, new TypeReference<Song>(){});
             if (!submittedSong.valid()) throw new PayloadException(400, "Given payload is not valid.");
@@ -113,9 +114,8 @@ public class SongServlet extends HttpServlet {
         String header = request.getHeader("Accept");
 
         if (header == null || header.isEmpty() || header.equals("*/*")) return ContentType.JSON;
-        else if (header.equals("application/xml")) return ContentType.XML;
-        else if (header.equals("application/json")) return ContentType.JSON;
-        else if (header.equals("text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,/;q=0.8,application/signed-exchange;v=b3")) return ContentType.JSON; //TODO nur fuer den browser
+        else if (header.contains("application/xml")) return ContentType.XML;
+        else if (header.contains("application/json")) return ContentType.JSON;
         else throw new ParameterException(HttpServletResponse.SC_NOT_ACCEPTABLE, "Can't satisfy header"); //sollte eigentlich nie geworfen werden
     }
 

@@ -2,6 +2,7 @@ package htwb.ai.FaDen.controller;
 
 import htwb.ai.FaDen.dao.SongDao;
 import htwb.ai.FaDen.model.InMemorySongs;
+import htwb.ai.FaDen.model.Song;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -9,6 +10,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
 
 import javax.servlet.ServletException;
+import javax.swing.text.html.parser.Entity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -120,7 +122,30 @@ class SongServletTest {
     }
 
     @Test
-    void doPut() {
+    void doPutDifferentIDs() {
+        try {
+            String payload = "{\n" +
+                    "    \"id\": 6,\n" +
+                    "    \"title\": \"Wrecking Ball\",\n" +
+                    "    \"artist\": \"MILEY CIRUS\",\n" +
+                    "    \"label\": \"RCA\",\n" +
+                    "    \"released\": 2013\n" +
+                    "}";
+
+            request.addHeader("Content-Type", "application/json");
+            request.setContextPath("/songsservlet-FaDen");
+            request.setPathInfo("/songs");
+            request.addParameter("songId", "3");
+            request.setContent(payload.getBytes());
+
+            servlet.doPut(request, response);
+
+            assertEquals("", response.getContentAsString());
+            assertEquals(400,response.getStatus());
+        } catch (Exception e) {
+            fail("No exception should be thrown");
+            e.printStackTrace();
+        }
     }
 
     @Test
