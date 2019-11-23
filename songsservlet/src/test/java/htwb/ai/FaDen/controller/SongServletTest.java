@@ -149,6 +149,67 @@ class SongServletTest {
     }
 
     @Test
+    void doPutCorrectIds() {
+        try {
+            String payload = "{\n" +
+                    "    \"id\": 2,\n" +
+                    "    \"title\": \"Wrecking Ball\",\n" +
+                    "    \"artist\": \"MILEY CIRUS\",\n" +
+                    "    \"label\": \"RCA\",\n" +
+                    "    \"released\": 2013\n" +
+                    "}";
+
+            request.addHeader("Content-Type", "application/json");
+            request.setContextPath("/songsservlet-FaDen");
+            request.setPathInfo("/songs");
+            request.addParameter("songId", "2");
+            request.setContent(payload.getBytes());
+
+            servlet.doPut(request, response);
+
+            assertEquals(204,response.getStatus());
+            assertEquals("", response.getContentAsString());
+        } catch (Exception e) {
+            fail("No exception should be thrown");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void doGet404(){
+        try {
+            request.setContextPath("/songsservlet-FaDen");
+            request.setPathInfo("/songs");
+            request.addParameter("songId", "19");
+
+            servlet.doGet(request, response);
+
+            assertEquals(404, response.getStatus());
+        } catch (Exception e) {
+            fail("No exception should be thrown");
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @Test
+    void doGet400causedByMissingSongId() {
+        try {
+            request.setContextPath("/songsservlet-FaDen");
+            request.setPathInfo("/songs");
+
+            servlet.doGet(request, response);
+
+            assertEquals(400, response.getStatus());
+        } catch (Exception e) {
+            fail("No exception should be thrown");
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
     void destroy() {
     }
 }
