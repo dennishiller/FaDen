@@ -41,7 +41,7 @@ public class SongServlet extends HttpServlet {
 
     public String checkUrlPath(HttpServletRequest request, HttpServletResponse response) throws ParameterException, IOException {
         String pathInfo = request.getPathInfo();
-        if (pathInfo == null || !pathInfo.startsWith("/songs")) {
+        if (pathInfo == null || !pathInfo.equals("/songs") || !request.getContextPath().equals("/songsservlet-FaDen")) {
             throw new ParameterException(HttpServletResponse.SC_BAD_REQUEST, "Not a valid path.");
         }
         return pathInfo; //TODO unneccasry
