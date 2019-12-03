@@ -62,6 +62,40 @@ class SongServletTest {
     }
 
     @Test
+    void doGetWrongPath() {
+        try {
+            request.setContextPath("/songsservlet-FaDen");
+            request.setPathInfo("/songssgsgsgsgs");
+            request.addParameter("songId", "2");
+            request.addHeader("Accept", "application/json");
+
+            servlet.doGet(request, response);
+
+            assertEquals(400, response.getStatus());
+        } catch (Exception e) {
+            fail("No exception should be thrown");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void doGetWrongContextPath() {
+        try {
+            request.setContextPath("/test");
+            request.setPathInfo("/songs");
+            request.addParameter("songId", "2");
+            request.addHeader("Accept", "application/json");
+
+            servlet.doGet(request, response);
+
+            assertEquals(400, response.getStatus());
+        } catch (Exception e) {
+            fail("No exception should be thrown");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     void doGetNothingHeader() {
         try {
             request.setContextPath("/songsservlet-FaDen");
@@ -90,6 +124,23 @@ class SongServletTest {
             servlet.doGet(request, response);
 
             assertEquals(406, response.getStatus());
+        } catch (Exception e) {
+            fail("No exception should be thrown");
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void doGetWrongQueryParameter() {
+        try {
+            request.setContextPath("/songsservlet-FaDen");
+            request.setPathInfo("/songs");
+            request.addParameter("songIdentification", "2");
+            request.addHeader("Accept", "application/json");
+
+            servlet.doGet(request, response);
+
+            assertEquals(400, response.getStatus());
         } catch (Exception e) {
             fail("No exception should be thrown");
             e.printStackTrace();
@@ -176,7 +227,7 @@ class SongServletTest {
     }
 
     @Test
-    void doGet404(){
+    void doGetInvalidQueryParameter(){
         try {
             request.setContextPath("/songsservlet-FaDen");
             request.setPathInfo("/songs");
