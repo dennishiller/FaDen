@@ -1,6 +1,9 @@
 package htwb.ai.FaDen.inMemory;
 
+import htwb.ai.FaDen.bean.Song;
+
 import javax.xml.bind.annotation.XmlAnyElement;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,10 @@ public class InMemorySongs {
     public static InMemorySongs getInstance() {
         if(instance == null) instance = new InMemorySongs();
         return instance;
+    }
+
+    public Collection<Song> getAllSongs(){
+        return storage.values();
     }
 
     public Song update(int key, Song value) {
