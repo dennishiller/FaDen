@@ -1,6 +1,7 @@
 package htwb.ai.FaDen.inMemory;
 
 import htwb.ai.FaDen.bean.Song;
+import htwb.ai.FaDen.dao.ISongDao;
 
 import javax.xml.bind.annotation.XmlAnyElement;
 import java.util.Collection;
@@ -9,22 +10,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class InMemorySongs {
+public class SongsMemoryDao {
 
-    private static InMemorySongs instance = null;
+    private static SongsMemoryDao instance = null;
     private Map<Integer, Song> storage;
 
-    public InMemorySongs(List<Song> songs) {
+    public SongsMemoryDao(List<Song> songs) {
         storage = new ConcurrentHashMap<>();
         songs.forEach(song -> storage.put(song.getId(), song));
     }
 
-    private InMemorySongs() {
+    private SongsMemoryDao() {
         storage = new ConcurrentHashMap<>();
     }
 
-    public static InMemorySongs getInstance() {
-        if(instance == null) instance = new InMemorySongs();
+    public static SongsMemoryDao getInstance() {
+        if(instance == null) instance = new SongsMemoryDao();
         return instance;
     }
 

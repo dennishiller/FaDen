@@ -21,7 +21,6 @@ public class MyApplication extends ResourceConfig {
         EntityManager em = factory.createEntityManager();
 
 
-
     }
 }
 
