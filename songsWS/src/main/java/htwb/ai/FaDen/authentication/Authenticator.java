@@ -2,7 +2,7 @@ package htwb.ai.FaDen.authentication;
 
 public class Authenticator {
 
-    public void authenticate() {
-
+    public boolean authenticate(String authToken) {
+        return true;
     }
 }
