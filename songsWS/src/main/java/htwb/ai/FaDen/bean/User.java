@@ -3,10 +3,11 @@ package htwb.ai.FaDen.bean;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
+@Table(name = "users")
 public class User {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE) // TODO: might delete
 	private String userId;
 	private String key;
 	private String firstName;

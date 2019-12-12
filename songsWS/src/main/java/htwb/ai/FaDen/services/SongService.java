@@ -9,7 +9,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.Collection;
 
-@Path("/songsWS-FaDen/rest/songs")
+@Path("/songs")
 public class SongService {
 
 	@Inject

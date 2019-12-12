@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
-    <persistence-unit name="songsWS" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="songsWS-PU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        
-        <class></class>
-        <class></class>
+
+        <class>htwb.ai.FaDen.bean.Song</class>
+        <class>htwb.ai.FaDen.bean.User</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" 
-                      value="jdbc:postgresql://db.f4.htw-berlin.de"/>
-            <property name="javax.persistence.jdbc.user" value="_s0563207__songsws_generic"/>
+                      value="jdbc:postgresql://db.f4.htw-berlin.de:5432/_s0563263__songsws"/>
+            <property name="javax.persistence.jdbc.user" value="_s0563263__songsws_generic"/>
             <property name="javax.persistence.jdbc.password" value="password"/>
             
             <!--Hibernate properties-->
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="false"/>
             
