@@ -7,9 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Path("/songs")
 public class SongService {
@@ -47,10 +45,12 @@ public class SongService {
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response addSong(Song song, @Context UriInfo uriInfo) {
 		try {
+			if (!song.valid()) return Response.status(Response.Status.BAD_REQUEST).entity("Payload is not complete").build();
 			Integer newId = songDao.addSong(song);
+			if (newId == null) return Response.status(Response.Status.BAD_REQUEST).build();
 			UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 			uriBuilder.path(Integer.toString(newId));
-			return Response.created(uriBuilder.build()).build(); // TODO: Location Header
+			return Response.created(uriBuilder.build()).build();
 		} catch (PersistenceException e) {
 			return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Database error. We fucked up, sorry").build();
 		}
@@ -60,6 +60,7 @@ public class SongService {
 	@Path("{id}")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response updateSong(Song song, @PathParam("id") int id) {
+		if (!song.valid()) return Response.status(Response.Status.BAD_REQUEST).entity("Payload is not complete").build();
 		if (song.getId() != id) return Response.status(Response.Status.BAD_REQUEST).entity("Payload-Id doesn't match with path-id").build();
 		if (song.getTitle() == null) return Response.status(Response.Status.BAD_REQUEST).entity("Title is empty").build();
 

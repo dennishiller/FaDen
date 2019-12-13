@@ -51,6 +51,9 @@ public class SongDao implements ISongDao {
         EntityTransaction transaction = null;
         try {
             em = emf.createEntityManager();
+
+            Song alreadyExists = em.find(Song.class, song.getId());
+            if (alreadyExists != null) return null;
             transaction = em.getTransaction();
 
             transaction.begin();

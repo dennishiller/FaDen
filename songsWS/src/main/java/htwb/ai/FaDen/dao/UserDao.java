@@ -23,6 +23,7 @@ public class UserDao implements IUserDao {
         try {
             em = emf.createEntityManager();
             User user = em.find(User.class, id);
+            if (user == null) return null;
             if (!user.getKey().equals(key)) return null;
             return user;
         } catch (Exception e) {
