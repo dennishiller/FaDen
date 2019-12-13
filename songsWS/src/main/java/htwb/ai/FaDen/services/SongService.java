@@ -27,8 +27,8 @@ public class SongService {
 	}
 
 	@GET
-	@Path("/{id}")
-	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+	@Path("{id}")
+	@Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response getSong(@PathParam("id") int songId) {
 		Song song = null;
 		try {
@@ -72,7 +72,7 @@ public class SongService {
 	}
 
 	@DELETE
-	@Path("/{id}")
+	@Path("{id}")
 	public Response deleteSong(@PathParam("id") int id) {
 		try {
 			Song song = songDao.deleteSong(id);

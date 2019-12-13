@@ -7,9 +7,12 @@ import java.util.Collection;
 
 public class SongDao implements ISongDao {
 
-    @Inject
     private EntityManagerFactory emf;
 
+    @Inject
+    public SongDao(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
 
     @Override
     public Song getSong(Integer id) {

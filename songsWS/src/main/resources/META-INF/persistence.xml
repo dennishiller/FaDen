@@ -11,9 +11,9 @@
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" 
-                      value="jdbc:postgresql://db.f4.htw-berlin.de:5432/_s0563263__songsws"/>
-            <property name="javax.persistence.jdbc.user" value="_s0563263__songsws_generic"/>
-            <property name="javax.persistence.jdbc.password" value="password"/>
+                      value="jdbc:postgresql://141.45.146.231:54320/s0563263_songsdb"/>
+            <property name="javax.persistence.jdbc.user" value="faden"/>
+            <property name="javax.persistence.jdbc.password" value="12345678"/>
             
             <!--Hibernate properties-->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL95Dialect"/>
@@ -30,7 +30,7 @@
             
             <!-- in seconds:  When an idle connection is removed from the pool
                  Hibernate default: 0, never expire. -->
-            <property name="hibernate.c3p0.timeout" value="1800"/> 
+            <property name="hibernate.c3p0.timeout" value="1800"/>
             
             <!--  Number of prepared statements that will be cached. 
                   Hibernate default: 0 , caching is disable. -->

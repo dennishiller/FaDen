@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE) // TODO: might delete
 	private String userId;
 	private String key;
 	private String firstName;

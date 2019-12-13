@@ -14,7 +14,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
     @Inject
-    private Authenticator authenticator;
+    private IAuthenticator authenticator;
 
     @Override
     public void filter(ContainerRequestContext containerRequest) throws WebApplicationException {
@@ -29,9 +29,9 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             // 2) Client hat keinen Token mitgeschickt und will zu /songs
             // Wenn 1), dann nix machen = durchlassen
             // Wenn 2), dann nicht durchlassen = WebApplicationException werfen
-            //if (!containerRequest.getUriInfo().getPath()..... vervollstaendige mich!) {
-            //    throw new WebApplicationException(Status.UNAUTHORIZED);
-            //}
+            if (!containerRequest.getUriInfo().getPath().startsWith("auth")) {
+                throw new WebApplicationException(Status.UNAUTHORIZED);
+            }
         } else {
             if (!authenticator.authenticate(authToken)) { // Token existiert nicht
                 throw new WebApplicationException(Status.UNAUTHORIZED);
