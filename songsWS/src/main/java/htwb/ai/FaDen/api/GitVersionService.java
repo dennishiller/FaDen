@@ -1,4 +1,4 @@
-package htwb.ai.FaDen.services;
+package htwb.ai.FaDen.api;
 
 import java.io.IOException;
 import java.io.InputStream;

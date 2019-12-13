@@ -9,5 +9,5 @@ public interface ISongDao {
     public Collection<Song> getSongs();
     public Integer addSong(Song song);
     public Song updateSong(Song song);
-    public Song deleteSong(Integer Song);
+    public Song deleteSong(Integer id);
 }

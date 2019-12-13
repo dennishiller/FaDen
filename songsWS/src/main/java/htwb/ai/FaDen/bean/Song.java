@@ -1,11 +1,15 @@
 package htwb.ai.FaDen.bean;
+
+
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+@XmlRootElement(name = "song")
 @Entity
 @Table(name = "song")
 public class Song {
+
 	@Id
 	private Integer id;
 	private String title;
@@ -28,7 +32,7 @@ public class Song {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
