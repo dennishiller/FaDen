@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Path("/songs")
 public class SongService {
@@ -20,7 +22,8 @@ public class SongService {
 	public Response getAllSongs() {
 		try {
 			Collection<Song> songs = songDao.getSongs();
-			return Response.status(Response.Status.OK).entity(songs).build();
+			GenericEntity<Collection<Song>> entity = new GenericEntity<Collection<Song>>(songs) {}; //otherwise we get problems with xml lists
+			return Response.status(Response.Status.OK).entity(entity).build();
 		} catch (PersistenceException e) {
 			return Response.status(Response.Status.SERVICE_UNAVAILABLE).entity("Database error. We fucked up, sorry").build();
 		}
@@ -54,7 +57,7 @@ public class SongService {
 	}
 
 	@PUT
-	@Path("/{id}")
+	@Path("{id}")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response updateSong(Song song, @PathParam("id") int id) {
 		if (song.getId() != id) return Response.status(Response.Status.BAD_REQUEST).entity("Payload-Id doesn't match with path-id").build();

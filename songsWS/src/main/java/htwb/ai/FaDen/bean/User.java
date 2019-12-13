@@ -1,7 +1,9 @@
 package htwb.ai.FaDen.bean;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "users")
 public class User {
