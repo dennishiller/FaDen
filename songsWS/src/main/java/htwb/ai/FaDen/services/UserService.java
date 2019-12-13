@@ -22,6 +22,8 @@ public class UserService {
     @GET
     @Produces({MediaType.TEXT_PLAIN})
     public Response createToken(@QueryParam("userId") String id, @QueryParam("key") String key) {
+        if (id == null || id.isEmpty()) return Response.status(Response.Status.BAD_REQUEST).entity("Could not find QueryParams userId").build();
+        if (key == null || key.isEmpty()) return Response.status(Response.Status.BAD_REQUEST).entity("Could not find QueryParam key").build();
         try {
             User user = userDao.getUser(id, key);
             if (user == null) return Response.status(Response.Status.UNAUTHORIZED).build();
