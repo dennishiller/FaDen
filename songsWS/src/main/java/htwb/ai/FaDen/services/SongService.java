@@ -44,6 +44,7 @@ public class SongService {
 	@POST
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response addSong(Song song, @Context UriInfo uriInfo) {
+		if (song == null) return Response.status(Response.Status.BAD_REQUEST).entity("No Payload available").build();
 		try {
 			if (!song.valid()) return Response.status(Response.Status.BAD_REQUEST).entity("Payload is not complete").build();
 			Integer newId = songDao.addSong(song);
@@ -60,9 +61,10 @@ public class SongService {
 	@Path("{id}")
 	@Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 	public Response updateSong(Song song, @PathParam("id") int id) {
-		if (!song.valid()) return Response.status(Response.Status.BAD_REQUEST).entity("Payload is not complete").build();
+		if (song == null) return Response.status(Response.Status.BAD_REQUEST).entity("No Payload available").build();
 		if (song.getId() != id) return Response.status(Response.Status.BAD_REQUEST).entity("Payload-Id doesn't match with path-id").build();
 		if (song.getTitle() == null) return Response.status(Response.Status.BAD_REQUEST).entity("Title is empty").build();
+		if (!song.valid()) return Response.status(Response.Status.BAD_REQUEST).entity("Payload is not complete").build();
 
 		try {
 			Song updatedSong = songDao.updateSong(song);

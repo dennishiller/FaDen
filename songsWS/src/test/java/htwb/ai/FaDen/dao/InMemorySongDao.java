@@ -45,6 +45,7 @@ public class InMemorySongDao implements ISongDao {
 
     @Override
     public Integer addSong(Song song) {
+        if (storage.get(song.getId()) != null) return null;
         storage.put(song.getId(), song);
         return song.getId();
     }

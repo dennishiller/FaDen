@@ -82,6 +82,8 @@ public class SongDao implements ISongDao {
             transaction = em.getTransaction();
 
             transaction.begin();
+            Song alreadyExists = em.find(Song.class, song.getId());
+            if (alreadyExists == null) return null;
             Song mergedSong = em.merge(song);
             if (mergedSong != null) {
                 transaction.commit();
