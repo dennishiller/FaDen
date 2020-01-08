@@ -2,6 +2,7 @@ package htwb.ai.FaDen.bean;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
 
 @XmlRootElement
 @Entity
@@ -13,6 +14,8 @@ public class User {
 	private String key;
 	private String firstName;
 	private String lastName;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<SongList> songLists;
 
 	public User(){};
 

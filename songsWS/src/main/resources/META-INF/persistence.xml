@@ -6,6 +6,7 @@
 
         <class>htwb.ai.FaDen.bean.Song</class>
         <class>htwb.ai.FaDen.bean.User</class>
+        <class>htwb.ai.FaDen.bean.SongList</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
 
         <properties>

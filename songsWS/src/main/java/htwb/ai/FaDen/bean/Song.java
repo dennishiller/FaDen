@@ -2,7 +2,6 @@ package htwb.ai.FaDen.bean;
 
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "song")
