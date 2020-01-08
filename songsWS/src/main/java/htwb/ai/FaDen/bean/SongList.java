@@ -10,7 +10,7 @@ import java.util.Set;
 public class SongList {
 
     @Id
-    String id;
+    Integer id;
     String name;
     Boolean isPrivate;
     @ManyToOne
@@ -27,11 +27,11 @@ public class SongList {
         this.user = user;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
