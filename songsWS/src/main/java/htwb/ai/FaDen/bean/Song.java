@@ -81,6 +81,11 @@ public class Song {
 		return true;
 	}
 
+	public boolean validWithId() {
+		if(id == null || id < 1) return false;
+		return valid();
+	}
+
 	public boolean isIdIsSet() {
 		return id != null;
 	}
