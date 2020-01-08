@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @Path("/songs")
 public class SongService {
@@ -52,7 +51,7 @@ public class SongService {
 		try {
 			if (!song.valid()) return Response.status(Response.Status.BAD_REQUEST).entity("Payload is not complete").build();
 			if (song.getId() <= 0)  return Response.status(Response.Status.BAD_REQUEST).entity("Id is not valid").build();
-			if (!song.isIdIsSet()) {
+			if (!song.idIsSet()) {
 				Collection<Song> songs = songDao.getSongs();
 				Set<Integer> intSet = IntStream.rangeClosed(1, songs.size()+1).boxed().collect(Collectors.toSet());
 				Set<Integer> alreadyUsedIds = songs.stream().map(Song::getId).collect(Collectors.toSet());

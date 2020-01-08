@@ -1,6 +1,5 @@
 package htwb.ai.FaDen.services;
 
-import htwb.ai.FaDen.authentication.Authenticator;
 import htwb.ai.FaDen.authentication.IAuthenticator;
 import htwb.ai.FaDen.bean.Song;
 import htwb.ai.FaDen.bean.SongList;
@@ -10,7 +9,6 @@ import htwb.ai.FaDen.dao.ISongListDao;
 
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.Collection;

@@ -86,7 +86,7 @@ public class Song {
 		return valid();
 	}
 
-	public boolean isIdIsSet() {
+	public boolean idIsSet() {
 		return id != null;
 	}
 }
