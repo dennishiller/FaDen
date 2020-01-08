@@ -27,4 +27,8 @@ public class Authenticator implements IAuthenticator {
     private void addTokenToSession(User user, String token) {
         this.tokenMap.put(user, token);
     }
+
+    public Map<User, String> getTokenMap() {
+        return tokenMap;
+    }
 }

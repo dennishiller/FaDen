@@ -17,6 +17,6 @@ public class DependencyBinder extends AbstractBinder {
         bind(SongDao.class).to(ISongDao.class);
         bind(UserDao.class).to(IUserDao.class);
         bind(Authenticator.class).to(IAuthenticator.class).in(Singleton.class);
-        bind(SongListDao.class).to(ISongListDAO.class);
+        bind(SongListDao.class).to(ISongListDao.class);
     }
 }

@@ -8,6 +8,10 @@ import javax.persistence.PersistenceException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Path("/songs")
 public class SongService {
@@ -47,6 +51,16 @@ public class SongService {
 		if (song == null) return Response.status(Response.Status.BAD_REQUEST).entity("No Payload available").build();
 		try {
 			if (!song.valid()) return Response.status(Response.Status.BAD_REQUEST).entity("Payload is not complete").build();
+			if (song.getId() <= 0)  return Response.status(Response.Status.BAD_REQUEST).entity("Id is not valid").build();
+			if (!song.isIdIsSet()) {
+				Collection<Song> songs = songDao.getSongs();
+				Set<Integer> intSet = IntStream.rangeClosed(1, songs.size()+1).boxed().collect(Collectors.toSet());
+				Set<Integer> alreadyUsedIds = songs.stream().map(Song::getId).collect(Collectors.toSet());
+				intSet.removeAll(alreadyUsedIds);
+				int newId = intSet.stream().findFirst().orElse(-1);
+
+				song.setId(newId);
+			}
 			Integer newId = songDao.addSong(song);
 			if (newId == null) return Response.status(Response.Status.BAD_REQUEST).build();
 			UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();

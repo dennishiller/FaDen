@@ -4,7 +4,7 @@ import htwb.ai.FaDen.bean.SongList;
 
 import java.util.Collection;
 
-public interface ISongListDAO {
+public interface ISongListDao {
 	public Collection<SongList> getSongLists(String userID);
 	public Collection<SongList> getPublicSongLists(String userID);
 	public SongList getSongList(Integer songListID);

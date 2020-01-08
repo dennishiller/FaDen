@@ -73,12 +73,15 @@ public class Song {
 	}
 
 	public boolean valid() {
-		if (id == null || id < 1) return false;
 		if (title == null || title.isEmpty() || title.isBlank()) return false;
 		if (artist == null || artist.isEmpty()) return false;
 		if (label == null || label.isEmpty()) return false;
 		if (released == null || released < 0) return false;
 
 		return true;
+	}
+
+	public boolean isIdIsSet() {
+		return id != null;
 	}
 }

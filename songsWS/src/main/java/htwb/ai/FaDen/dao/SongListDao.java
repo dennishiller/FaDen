@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.*;
 import java.util.Collection;
 
-public class SongListDao implements ISongListDAO {
+public class SongListDao implements ISongListDao {
 
 	private EntityManagerFactory emf;
 	@Inject
