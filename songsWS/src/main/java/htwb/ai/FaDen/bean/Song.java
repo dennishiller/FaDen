@@ -89,4 +89,14 @@ public class Song {
 	public boolean idIsSet() {
 		return id != null;
 	}
+
+	public boolean hasSameContentAs(Song otherSong) {
+		if (otherSong == null) return false;
+		if (!this.id.equals(otherSong.id)) return false;
+		if (!this.title.equals(otherSong.title)) return false;
+		if (!this.artist.equals(otherSong.artist)) return false;
+		if (!this.label.equals(otherSong.label)) return false;
+		if (!this.released.equals(otherSong.released)) return false;
+		return true;
+	}
 }

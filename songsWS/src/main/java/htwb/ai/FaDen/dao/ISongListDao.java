@@ -10,4 +10,5 @@ public interface ISongListDao {
 	public SongList getSongList(Integer songListID);
 	public Integer addSongList(SongList songList);
 	public SongList deleteSongList(Integer songListID);
+	public Collection<SongList> getAllSongLists();
 }

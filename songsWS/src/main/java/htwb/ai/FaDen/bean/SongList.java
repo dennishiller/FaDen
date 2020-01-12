@@ -10,14 +10,18 @@ import java.util.Set;
 public class SongList {
 
     @Id
-    Integer id;
-    String name;
-    Boolean isPrivate;
+    private Integer id;
+    private String name;
+    private Boolean isPrivate;
     @ManyToOne
     @JoinColumn(name="ownerid")
-    User user;
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    Set<Song> songs;
+    private User user;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "songlist_song",
+            joinColumns = {@JoinColumn(name = "songlist_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "songs_id", referencedColumnName = "id")})
+    private Set<Song> songs;
 
     public User getUser() {
         return user;
@@ -43,11 +47,11 @@ public class SongList {
         this.name = name;
     }
 
-    public Boolean getPrivate() {
+    public Boolean getIsPrivate() {
         return isPrivate;
     }
 
-    public void setPrivate(Boolean isPrivate) {
+    public void setIsPrivate(Boolean isPrivate) {
         this.isPrivate = isPrivate;
     }
 

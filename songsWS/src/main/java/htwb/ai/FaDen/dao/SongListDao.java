@@ -72,8 +72,8 @@ public class SongListDao implements ISongListDao {
 		try {
 			em = emf.createEntityManager();
 
-			Song alreadyExists = em.find(Song.class, songList.getId());
-			if (alreadyExists != null) return null;
+			SongList alreadyExists = em.find(SongList.class, songList.getId());
+			if(alreadyExists != null) return null;
 			transaction = em.getTransaction();
 
 			transaction.begin();
@@ -110,6 +110,21 @@ public class SongListDao implements ISongListDao {
 			return songList;
 		} catch (Exception e) {
 			throw new PersistenceException("Could not remove entity with id: " + songListID);
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+	}
+
+	public Collection<SongList> getAllSongLists() {
+		EntityManager em = null;
+		try {
+			em = emf.createEntityManager();
+			Query q = em.createQuery("SELECT s FROM SongList s");
+			return q.getResultList();
+		} catch (Exception e) {
+			throw new PersistenceException(e.getMessage());
 		} finally {
 			if (em != null) {
 				em.close();

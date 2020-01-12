@@ -16,7 +16,7 @@ public class DependencyBinder extends AbstractBinder {
         bind(Persistence.createEntityManagerFactory("songsWS-PU")).to(EntityManagerFactory.class);
         bind(SongDao.class).to(ISongDao.class);
         bind(UserDao.class).to(IUserDao.class);
-        bind(Authenticator.class).to(IAuthenticator.class).in(Singleton.class);
         bind(SongListDao.class).to(ISongListDao.class);
+        bind(Authenticator.class).to(IAuthenticator.class).in(Singleton.class);
     }
 }
