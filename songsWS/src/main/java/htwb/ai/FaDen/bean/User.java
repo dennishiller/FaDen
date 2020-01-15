@@ -1,7 +1,10 @@
 package htwb.ai.FaDen.bean;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Set;
 
 @XmlRootElement
@@ -34,6 +37,8 @@ public class User {
 		this.userId = userId;
 	}
 
+	@JsonIgnore
+	@XmlTransient
 	public String getKey() {
 		return key;
 	}

@@ -32,9 +32,4 @@ public class SongDaoTest {
         SongDao dao = new SongDao(emf);
         assertNotNull(dao);
     }
-
-    @Test
-    void initMissingEmf() {
-        assertThrows(NullPointerException.class, () -> new SongDao(null));
-    }
 }
