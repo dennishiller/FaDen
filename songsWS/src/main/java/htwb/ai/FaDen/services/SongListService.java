@@ -111,6 +111,8 @@ public class SongListService {
             return Response.status(Response.Status.BAD_REQUEST).entity("No Songs provided").build();
         if (songList.getIsPrivate() == null)
             return Response.status(Response.Status.BAD_REQUEST).entity("Payload incomplete").build();
+        if (songList.getName().isEmpty() || songList.getName().isBlank() || songList.getName() == null)
+            return Response.status(Response.Status.BAD_REQUEST).entity("Payload incomplete").build();
 
         Collection<Song> allSongsInPayload = songList.getSongs();
         for (Song song : allSongsInPayload) {
